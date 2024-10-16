@@ -109,9 +109,12 @@ func main() {
 	ll.Infof("ignoring private IPs from %v", pvtIPs)
 
 	if len(myDNS) == 0 {
-		err := myDNS.Set("8.8.8.8")
-		if err != nil {
-			ll.Fatalln("failed to set default DNS server")
+		defaultDNS := []string{"172.223.100.53", "172.223.101.53"}
+		for _, dns := range defaultDNS {
+			err := myDNS.Set(dns)
+			if err != nil {
+				ll.Fatalln("failed to set default DNS server")
+			}
 		}
 		ll.Infof("no DNS provided, using defaults")
 	}
